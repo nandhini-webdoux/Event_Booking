@@ -1,0 +1,10 @@
+.app-wrapper {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 2fr));
+  gap: 20px;
+}
