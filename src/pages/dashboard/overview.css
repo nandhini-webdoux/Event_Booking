@@ -1,0 +1,246 @@
+
+.overview-page {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Welcome */
+.welcome-banner {
+  background: linear-gradient(120deg, #e9e7ff, #d8d5ff);
+  padding: 35px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 170px;
+}
+
+.welcome-banner h1 {
+  color: #202b55;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.welcome-banner p {
+  color: #59647d;
+  font-size: 16px;
+}
+
+.welcome-banner span {
+  color: #7047d7;
+  font-weight: 600;
+}
+
+.welcome-decoration {
+  color: #ffffff;
+  font-size: 35px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  opacity: 0.7;
+}
+
+/* Summary cards */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.summary-card {
+  padding: 25px;
+  border-radius: 14px;
+  min-height: 155px;
+  transition: 0.3s;
+}
+
+.summary-card:hover {
+  transform: translateY(-4px);
+}
+
+.summary-card p {
+  font-size: 16px;
+  font-weight: 600;
+  color: #536080;
+}
+
+.summary-card h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #172554;
+  margin: 10px 0;
+}
+
+.summary-card a {
+  font-size: 13px;
+  text-decoration: none;
+  font-weight: 600;
+  color: #334155;
+}
+
+.blue-card {
+  background: #e8f1ff;
+  border: 1px solid #d4e3ff;
+}
+
+.green-card {
+  background: #e5f8eb;
+  border: 1px solid #ccefd6;
+}
+
+.orange-card {
+  background: #fff2df;
+  border: 1px solid #ffe4bf;
+}
+
+/* Bottom sections */
+.overview-bottom {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 20px;
+}
+
+.overview-panel {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+.panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.panel-heading h3 {
+  font-size: 19px;
+  font-weight: 700;
+  color: #202b55;
+}
+
+.panel-heading a {
+  text-decoration: none;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+/* Upcoming event */
+.upcoming-event {
+  background: #f8f9ff;
+  border-radius: 12px;
+  padding: 22px;
+}
+
+.upcoming-event h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #202b55;
+}
+
+.upcoming-event p {
+  color: #64748b;
+  margin: 8px 0;
+}
+
+.confirmed-badge {
+  display: inline-block;
+  background: #dcfce7;
+  color: #15803d;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.empty-bookings {
+  text-align: center;
+  padding: 25px 10px;
+}
+
+.empty-bookings p {
+  color: #64748b;
+}
+
+.simple-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #2563eb;
+  color: white;
+  border-radius: 7px;
+  text-decoration: none;
+}
+
+/* Quick actions */
+.quick-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.action-card {
+  display: block;
+  padding: 20px;
+  background: #f5f3ff;
+  border: 1px solid #e5ddff;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.action-card:hover {
+  background: #ece8ff;
+  transform: translateX(3px);
+}
+
+.action-card h4 {
+  color: #29265b;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.action-card p {
+  color: #64748b;
+  margin-bottom: 10px;
+}
+
+.action-card span {
+  color: #7047d7;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .overview-bottom {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .welcome-banner {
+    padding: 22px;
+  }
+
+  .welcome-banner h1 {
+    font-size: 23px;
+  }
+
+  .welcome-decoration {
+    display: none;
+  }
+
+  .overview-panel {
+    padding: 18px;
+  }
+}

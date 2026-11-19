@@ -1,22 +1,21 @@
+import EventCard from './EventCard';
 
-import EventCard from './EventCard'
-
-function EventList({ events, onBook }) {
+function EventList({ events }) {
   if (events.length === 0) {
     return (
       <p className="text-center text-muted fs-5 my-5">
         No events found. Try a different search.
       </p>
-    )
+    );
   }
 
   return (
     <div className="events-grid">
       {events.map((event) => (
-        <EventCard key={event.id} event={event} onBook={onBook} />
+        <EventCard key={event.id} event={event} />
       ))}
     </div>
-  )
+  );
 }
 
-export default EventList
+export default EventList;
