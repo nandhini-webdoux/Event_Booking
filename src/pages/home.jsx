@@ -3,6 +3,7 @@ import SearchBar from "../components/SearchBar";
 import CategoryFilter from "../components/CategoryFilter";
 import EventList from "../components/EventList";
 
+
 function Home({
   searchText,
   onSearchChange,
@@ -13,10 +14,10 @@ function Home({
 }) {
   return (
     <Container className="pb-5">
-      <SearchBar
+      {/* <SearchBar
         searchText={searchText}
         onSearchChange={onSearchChange}
-      />
+      /> */}
 
       <CategoryFilter
         selectedCategory={selectedCategory}

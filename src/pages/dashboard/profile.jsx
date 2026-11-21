@@ -1,15 +1,22 @@
+
 import { useState, useEffect } from 'react';
 import { Form, Button, Alert, Card } from 'react-bootstrap';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import {
+  FaEye,
+  FaEyeSlash,
+  FaUser,
+  FaLock,
+  FaEnvelope,
+  FaPhone,
+  FaShieldAlt
+} from 'react-icons/fa';
 
 function Profile({ currentUser, onUpdateProfile, onPasswordChange }) {
-  // Profile states
   const [name, setName] = useState(currentUser?.name || '');
   const [phone, setPhone] = useState(currentUser?.phone || '');
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState('');
 
-  // Password states
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -17,18 +24,15 @@ function Profile({ currentUser, onUpdateProfile, onPasswordChange }) {
   const [passwordMessage, setPasswordMessage] = useState('');
   const [passwordMessageType, setPasswordMessageType] = useState('');
 
-  // Eye icon states
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  // Update form when user details change
   useEffect(() => {
     setName(currentUser?.name || '');
     setPhone(currentUser?.phone || '');
   }, [currentUser]);
 
-  // Update profile
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -45,9 +49,7 @@ function Profile({ currentUser, onUpdateProfile, onPasswordChange }) {
     setErrors(newErrors);
     setSuccess('');
 
-    if (Object.keys(newErrors).length > 0) {
-      return;
-    }
+    if (Object.keys(newErrors).length > 0) return;
 
     onUpdateProfile({
       name: name.trim(),
@@ -57,7 +59,6 @@ function Profile({ currentUser, onUpdateProfile, onPasswordChange }) {
     setSuccess('Profile updated successfully!');
   };
 
-  // Change password
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
 
@@ -103,175 +104,197 @@ function Profile({ currentUser, onUpdateProfile, onPasswordChange }) {
   };
 
   return (
-    <div className="profile-container">
+    <div className="profile-page">
 
-      {/* Profile Information */}
-      <Card className="p-4 shadow-sm mb-4">
-        <h2 className="mb-2">My Profile</h2>
+      {/* Page Heading */}
+      <div className="profile-page-heading">
+        <div>
+          {/* <span className="profile-eyebrow">ACCOUNT SETTINGS</span> */}
+          <h2>My Profile</h2>
+          <p>Manage your personal information and account security.</p>
+        </div>
 
-        <p className="text-muted">
-          View and update your personal information.
-        </p>
+        
+      </div>
 
-        {success && (
-          <Alert variant="success">
-            {success}
-          </Alert>
-        )}
+      {/* Two Column Forms */}
+      <div className="profile-grid">
 
-        <Form onSubmit={handleSubmit}>
+        {/* Personal Information */}
+        <Card className="profile-card">
+          <div className="profile-card-header personal-header">
+            
 
-          <Form.Group className="mb-3">
-            <Form.Label>Full Name</Form.Label>
+            <div>
+              <h4>Personal Information</h4>
+              <p>Update your basic account details</p>
+            </div>
+          </div>
 
-            <Form.Control
-              type="text"
-              placeholder="Enter your name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-
-            {errors.name && (
-              <small className="text-danger">
-                {errors.name}
-              </small>
+          <Card.Body>
+            {success && (
+              <Alert variant="success">{success}</Alert>
             )}
-          </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Email Address</Form.Label>
+            <Form onSubmit={handleSubmit}>
 
-            <Form.Control
-              type="email"
-              value={currentUser?.email || ''}
-              readOnly
-            />
-          </Form.Group>
+              <Form.Group className="profile-field">
+                <Form.Label>Full Name</Form.Label>
+                <div className="profile-input-wrapper">
+                  <FaUser className="profile-input-icon" />
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter your full name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </div>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Phone Number</Form.Label>
+                {errors.name && (
+                  <small className="text-danger">{errors.name}</small>
+                )}
+              </Form.Group>
 
-            <Form.Control
-              type="tel"
-              placeholder="Enter 10-digit phone number"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
+              <Form.Group className="profile-field">
+                <Form.Label>Email Address</Form.Label>
+                <div className="profile-input-wrapper">
+                  <FaEnvelope className="profile-input-icon" />
+                  <Form.Control
+                    type="email"
+                    value={currentUser?.email || ''}
+                    readOnly
+                  />
+                </div>
+                <small className="profile-hint">
+                  Your registered email address cannot be changed here.
+                </small>
+              </Form.Group>
 
-            {errors.phone && (
-              <small className="text-danger">
-                {errors.phone}
-              </small>
+              <Form.Group className="profile-field">
+                <Form.Label>Phone Number</Form.Label>
+                <div className="profile-input-wrapper">
+                  <FaPhone className="profile-input-icon" />
+                  <Form.Control
+                    type="tel"
+                    placeholder="Enter 10-digit phone number"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </div>
+
+                {errors.phone && (
+                  <small className="text-danger">{errors.phone}</small>
+                )}
+              </Form.Group>
+
+              <Button type="submit" className="profile-save-btn">
+                Save Changes
+              </Button>
+
+            </Form>
+          </Card.Body>
+        </Card>
+
+        {/* Password Settings */}
+        <Card className="profile-card">
+          <div className="profile-card-header security-header">
+
+
+            <div>
+              <h4>Security Settings</h4>
+              <p>Keep your EventHub account secure</p>
+            </div>
+          </div>
+
+          <Card.Body>
+
+            {passwordMessage && (
+              <Alert variant={passwordMessageType}>
+                {passwordMessage}
+              </Alert>
             )}
-          </Form.Group>
 
-          <Button type="submit" variant="primary">
-            Save Changes
-          </Button>
+            <Form onSubmit={handlePasswordSubmit}>
 
-        </Form>
-      </Card>
+              {/* Current Password */}
+              <Form.Group className="profile-field">
+                <Form.Label>Current Password</Form.Label>
+                <div className="profile-password-wrapper">
+                  <FaLock className="profile-input-icon" />
+                  <Form.Control
+                    type={showCurrentPassword ? 'text' : 'password'}
+                    placeholder="Enter current password"
+                    value={currentPassword}
+                    onChange={(e) => setCurrentPassword(e.target.value)}
+                    required
+                  />
 
-      {/* Change Password */}
-      <Card className="p-4 shadow-sm">
-        <h3 className="mb-2">Change Password</h3>
+                  <button
+                    type="button"
+                    className="profile-eye-btn"
+                    onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                  >
+                    {showCurrentPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
+              </Form.Group>
 
-        <p className="text-muted">
-          Update your account password.
-        </p>
+              {/* New Password */}
+              <Form.Group className="profile-field">
+                <Form.Label>New Password</Form.Label>
+                <div className="profile-password-wrapper">
+                  <FaLock className="profile-input-icon" />
+                  <Form.Control
+                    type={showNewPassword ? 'text' : 'password'}
+                    placeholder="Enter new password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    required
+                  />
 
-        {passwordMessage && (
-          <Alert variant={passwordMessageType}>
-            {passwordMessage}
-          </Alert>
-        )}
+                  <button
+                    type="button"
+                    className="profile-eye-btn"
+                    onClick={() => setShowNewPassword(!showNewPassword)}
+                  >
+                    {showNewPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
+              </Form.Group>
 
-        <Form onSubmit={handlePasswordSubmit}>
+              {/* Confirm Password */}
+              <Form.Group className="profile-field">
+                <Form.Label>Confirm New Password</Form.Label>
+                <div className="profile-password-wrapper">
+                  <FaLock className="profile-input-icon" />
+                  <Form.Control
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    placeholder="Confirm your new password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                  />
 
-          {/* Current Password */}
-          <Form.Group className="mb-3">
-            <Form.Label>Current Password</Form.Label>
+                  <button
+                    type="button"
+                    className="profile-eye-btn"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  >
+                    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
+              </Form.Group>
 
-            <div className="input-group">
-              <Form.Control
-                type={showCurrentPassword ? 'text' : 'password'}
-                placeholder="Enter current password"
-                value={currentPassword}
-                onChange={(e) => setCurrentPassword(e.target.value)}
-                required
-              />
-
-              <Button
-                type="button"
-                variant="outline-secondary"
-                onClick={() =>
-                  setShowCurrentPassword(!showCurrentPassword)
-                }
-              >
-                {showCurrentPassword ? <FaEyeSlash /> : <FaEye />}
+              <Button type="submit" className="profile-password-btn">
+                Update Password
               </Button>
-            </div>
-          </Form.Group>
 
-          {/* New Password */}
-          <Form.Group className="mb-3">
-            <Form.Label>New Password</Form.Label>
+            </Form>
+          </Card.Body>
+        </Card>
 
-            <div className="input-group">
-              <Form.Control
-                type={showNewPassword ? 'text' : 'password'}
-                placeholder="Enter new password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                required
-              />
-
-              <Button
-                type="button"
-                variant="outline-secondary"
-                onClick={() =>
-                  setShowNewPassword(!showNewPassword)
-                }
-              >
-                {showNewPassword ? <FaEyeSlash /> : <FaEye />}
-              </Button>
-            </div>
-          </Form.Group>
-
-          {/* Confirm Password */}
-          <Form.Group className="mb-3">
-            <Form.Label>Confirm New Password</Form.Label>
-
-            <div className="input-group">
-              <Form.Control
-                type={showConfirmPassword ? 'text' : 'password'}
-                placeholder="Confirm new password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
-
-              <Button
-                type="button"
-                variant="outline-secondary"
-                onClick={() =>
-                  setShowConfirmPassword(!showConfirmPassword)
-                }
-              >
-                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-              </Button>
-            </div>
-          </Form.Group>
-
-          <Button type="submit" variant="primary">
-            Update Password
-          </Button>
-
-        </Form>
-      </Card>
-
+      </div>
     </div>
   );
 }
-
 export default Profile;

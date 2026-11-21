@@ -15,19 +15,24 @@ function Login({ users, currentUser, onLogin }) {
   const [errors, setErrors] = useState({});
   const [formError, setFormError] = useState('');
 
-  // Focus email input when Login page opens
+  // Clear fields whenever Login page opens
   useEffect(() => {
+    setFormData({
+      email: '',
+      password: ''
+    });
+    setErrors({});
+    setFormError('');
     emailRef.current?.focus();
   }, []);
 
-  // Redirect already logged-in user to Dashboard
+  // Redirect logged-in users
   useEffect(() => {
     if (currentUser) {
       navigate('/dashboard', { replace: true });
     }
   }, [currentUser, navigate]);
 
-  // Validate form
   const validateForm = () => {
     const newErrors = {};
 
@@ -44,11 +49,9 @@ function Login({ users, currentUser, onLogin }) {
     }
 
     setErrors(newErrors);
-
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -60,7 +63,6 @@ function Login({ users, currentUser, onLogin }) {
     setFormError('');
   };
 
-  // Handle input blur
   const handleBlur = (e) => {
     const { name, value } = e.target;
 
@@ -72,7 +74,6 @@ function Login({ users, currentUser, onLogin }) {
     }
   };
 
-  // Handle login submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -84,6 +85,10 @@ function Login({ users, currentUser, onLogin }) {
     );
 
     if (isLoggedIn) {
+      setFormData({
+        email: '',
+        password: ''
+      });
       navigate('/dashboard');
     } else {
       setFormError('Invalid email or password');
@@ -91,43 +96,75 @@ function Login({ users, currentUser, onLogin }) {
   };
 
   return (
-    <div className="container mt-5" style={{ maxWidth: '450px' }}>
-      <h2 className="text-center mb-4">Login</h2>
+    <div className="auth-page">
+      <div className="auth-container">
 
-      <form onSubmit={handleSubmit}>
-        <FormField
-          label="Email"
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.email}
-          inputRef={emailRef}
-        />
+        <div className="auth-form-section">
+          <div className="auth-logo">
+            
+            
+          </div>
 
-        <FormField
-          label="Password"
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={errors.password}
-        />
+          <div className="auth-form-content">
+            <h2>Welcome Back</h2>
+            <p>Please enter your details to sign in</p>
 
-        {formError && (
-          <p className="text-danger">{formError}</p>
-        )}
+            <form onSubmit={handleSubmit} autoComplete="off">
 
-        <button type="submit" className="btn btn-primary w-100">
-          Login
-        </button>
-      </form>
+              <FormField
+                label="Email"
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.email}
+                inputRef={emailRef}
+                autoComplete="off"
+              />
 
-      <p className="text-center mt-3">
-        New here? <Link to="/signup">Create an account</Link>
-      </p>
+              <FormField
+                label="Password"
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.password}
+                autoComplete="new-password"
+              />
+
+              {formError && (
+                <p className="text-danger">{formError}</p>
+              )}
+
+              <button type="submit" className="auth-submit">
+                Sign In →
+              </button>
+            </form>
+
+            <div className="auth-divider">
+              <span>OR</span>
+            </div>
+
+            <p className="auth-footer">
+              New here?
+              <Link to="/signup"> Create an account</Link>
+            </p>
+          </div>
+        </div>
+
+        <div className="auth-image-section">
+          <div className="auth-image-overlay">
+            <h1>Welcome to EventHub!</h1>
+            <p>
+              Discover exciting events, book your tickets
+              and create unforgettable memories.
+            </p>
+          </div>
+        </div>
+
+      </div>
     </div>
   );
 }

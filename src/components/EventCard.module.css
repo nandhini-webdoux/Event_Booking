@@ -1,18 +1,95 @@
+
 .card {
   height: 100%;
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid #eeeaf5;
+  border-radius: 16px;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(40, 35, 70, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 10px 28px rgba(40, 35, 70, 0.12);
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
 }
 
 .badgeRow {
   display: flex;
-  gap: 8px;
   flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.eventTitle {
+  color: #25233a;
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.eventDetails {
+  background: #f8f7fc;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 20px;
+}
+
+.eventDetails p {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
   margin-bottom: 12px;
+  color: #77758a;
+  font-size: 14px;
+}
+
+.eventDetails p:last-child {
+  margin-bottom: 0;
+}
+
+.eventDetails strong {
+  color: #454258;
+  font-weight: 600;
+}
+
+.eventDetails span {
+  color: #25233a;
+  text-align: right;
+}
+
+.bookButton {
+  display: block;
+  width: 100%;
+  margin-top: auto;
+  padding: 11px 16px;
+  border-radius: 9px;
+  background: #6c63ff;
+  color: #ffffff;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.bookButton:hover {
+  background: #554bdc;
+  color: #ffffff;
+}
+
+.disabledButton {
+  background: #a6a4b2;
+  cursor: not-allowed;
+}
+
+.disabledButton:hover {
+  background: #a6a4b2;
 }

@@ -1,0 +1,38 @@
+.bookingTable thead th {
+  padding: 16px 14px;
+  background: #f5f4ff;
+  color: #77758a;
+  border-bottom: 1px solid #eeeaf5;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  text-transform: none;
+}
+
+.bookingTable tbody td {
+  padding: 18px 14px;
+  color: #625f78;
+  font-size: 13px;
+  border-bottom: 1px solid #f0eef5;
+  white-space: nowrap;
+}
+
+.actionButtons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.editButton {
+  background: #6c63ff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 7px 16px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+}
+
+.editButton:hover {
+  background: #554bdc !important;
+}

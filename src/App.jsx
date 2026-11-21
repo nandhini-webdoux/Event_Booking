@@ -45,6 +45,7 @@ function App() {
     return JSON.parse(localStorage.getItem('bookings')) || [];
   });
 
+  // Save data to localStorage
   useEffect(() => {
     localStorage.setItem('events', JSON.stringify(events));
   }, [events]);
@@ -61,7 +62,7 @@ function App() {
     localStorage.setItem('totalBookings', String(totalBookings));
   }, [totalBookings]);
 
-  
+  // Filter Events
   const filteredEvents = events.filter((event) => {
     const matchesSearch = event.title
       .toLowerCase()
@@ -165,8 +166,82 @@ function App() {
     setTotalBookings((prev) => prev + 1);
   };
 
-  // Cancel booking
-  const handleCancelBooking = (bookingId) => {
+  // Update Existing Booking
+  
+const handleUpdateBooking = (
+  bookingId,
+  eventId,
+  newSeats,
+  specialNote
+) => {
+
+  const existingBooking = bookings.find(
+    (booking) =>
+      booking.id === bookingId &&
+      booking.userEmail === currentUser?.email
+  );
+
+  if (!existingBooking) {
+    alert('Booking not found!');
+    return false;
+  }
+
+  const selectedEvent = events.find(
+    (event) => event.id === eventId
+  );
+
+  if (!selectedEvent) {
+    alert('Event not found!');
+    return false;
+  }
+
+  // Restore the old seats temporarily for availability check
+  const availableSeats =
+    selectedEvent.seatsLeft + Number(existingBooking.seats);
+
+  if (
+    !Number.isInteger(Number(newSeats)) ||
+    Number(newSeats) < 1 ||
+    Number(newSeats) > 5 ||
+    Number(newSeats) > availableSeats
+  ) {
+    alert('Not enough seats available!');
+    return false;
+  }
+
+  // Update available seats
+  setEvents((prevEvents) =>
+    prevEvents.map((event) =>
+      event.id === eventId
+        ? {
+            ...event,
+            seatsLeft: availableSeats - Number(newSeats)
+          }
+        : event
+    )
+  );
+
+  // Update existing booking
+  setBookings((prevBookings) =>
+    prevBookings.map((booking) =>
+      booking.id === bookingId
+        ? {
+            ...booking,
+            seats: Number(newSeats),
+            amount: selectedEvent.price * Number(newSeats),
+            specialNote: specialNote
+          }
+        : booking
+    )
+  );
+
+  alert('Booking updated successfully!');
+
+  return true;
+};
+
+  // Cancel Booking
+const handleCancelBooking = (bookingId) => {
     const bookingToCancel = bookings.find(
       (booking) => booking.id === bookingId
     );
@@ -191,7 +266,7 @@ function App() {
     setTotalBookings((prev) => Math.max(0, prev - 1));
   };
 
-  // Update profile
+  // Update Profile
   const handleUpdateProfile = (updatedData) => {
     const updatedUser = {
       ...currentUser,
@@ -218,7 +293,7 @@ function App() {
     });
   };
 
-  // Change password
+  // Change Password
   const handlePasswordChange = (newPassword) => {
     const updatedUser = {
       ...currentUser,
@@ -251,14 +326,15 @@ function App() {
     navigate('/login');
   };
 
-  // Current user's bookings
+  // Current User Bookings
   const userBookings = bookings.filter(
     (booking) => booking.userEmail === currentUser?.email
   );
 
   return (
     <Routes>
-      {/* Public routes */}
+
+      {/* Public Routes */}
       <Route
         path="/login"
         element={
@@ -280,7 +356,7 @@ function App() {
         }
       />
 
-      {/* First page */}
+      {/* First Page */}
       <Route
         path="/"
         element={
@@ -290,78 +366,83 @@ function App() {
         }
       />
 
-      {/* Protected routes */}
+      {/* Protected Routes */}
       <Route element={<ProtectedRoute />}>
+
         <Route
+          path="/dashboard"
           element={
-            <MainLayout onLogout={handleLogout} />
+            <DashboardLayout
+              currentUser={currentUser}
+              onLogout={handleLogout}
+              searchText={searchText}
+              onSearchChange={setSearchText}
+            />
           }
         >
+
+          {/* Dashboard Overview */}
           <Route
-            path="/dashboard"
-            element={<DashboardLayout />}
-          >
-            {/* Dashboard Overview */}
-            <Route
-              index
-              element={
-                <Overview
-                  currentUser={currentUser}
-                  bookings={userBookings}
-                />
-              }
-            />
+            index
+            element={
+              <Overview
+                currentUser={currentUser}
+                bookings={userBookings}
+              />
+            }
+          />
 
-            {/* My Bookings */}
-            <Route
-              path="bookings"
-              element={
-                <MyBooking
-                  bookings={userBookings}
-                  onCancel={handleCancelBooking}
-                />
-              }
-            />
+          {/* My Bookings */}
+          <Route
+            path="bookings"
+            element={
+              <MyBooking
+                bookings={userBookings}
+                onCancel={handleCancelBooking}
+              />
+            }
+          />
 
-            {/* My Profile */}
-            <Route
-              path="profile"
-              element={
-                <Profile
-                  currentUser={currentUser}
-                  onUpdateProfile={handleUpdateProfile}
-                  onPasswordChange={handlePasswordChange}
-                />
-              }
-            />
+          {/* My Profile */}
+          <Route
+            path="profile"
+            element={
+              <Profile
+                currentUser={currentUser}
+                onUpdateProfile={handleUpdateProfile}
+                onPasswordChange={handlePasswordChange}
+              />
+            }
+          />
 
-            {/* EventHub */}
-            <Route
-              path="eventhub"
-              element={
-                <Home
-                  searchText={searchText}
-                  onSearchChange={setSearchText}
-                  selectedCategory={selectedCategory}
-                  onSelectCategory={setSelectedCategory}
-                  filteredEvents={filteredEvents}
-                  handleBook={handleBook}
-                />
-              }
-            />
+          {/* EventHub */}
+          <Route
+            path="eventhub"
+            element={
+              <Home
+                searchText={searchText}
+                onSearchChange={setSearchText}
+                selectedCategory={selectedCategory}
+                onSelectCategory={setSelectedCategory}
+                filteredEvents={filteredEvents}
+                handleBook={handleBook}
+              />
+            }
+          />
 
-            {/* Event Details */}
-            <Route
-              path="events/:id"
-              element={
-                <EventDetails
-                  events={events}
-                  currentUser={currentUser}
-                  onBook={handleEventBooking}
-                />
-              }
-            />
-          </Route>
+          {/* Event Details and Edit Booking */}
+          <Route
+            path="events/:id"
+            element={
+              <EventDetails
+                events={events}
+                currentUser={currentUser}
+                onBook={handleEventBooking}
+                onUpdate={handleUpdateBooking}
+              />
+            }
+          />
+
         </Route>
       </Route>
 
@@ -370,6 +451,7 @@ function App() {
         path="*"
         element={<Navigate to="/login" replace />}
       />
+
     </Routes>
   );
 }

@@ -10,42 +10,42 @@ function EventCard({ event }) {
 
   return (
     <Card className={styles.card}>
-      <Card.Body className="d-flex flex-column">
+      <Card.Body className={styles.cardBody}>
         <div className={styles.badgeRow}>
-          <Badge color="#0d6efd">{event.category}</Badge>
+          <Badge color="#6c63ff">{event.category}</Badge>
 
-          {isSoldOut && <Badge color="red">Sold Out</Badge>}
+          {isSoldOut && <Badge color="#dc3545">Sold Out</Badge>}
 
           {isFewSeats && (
-            <Badge color="orange">Few seats left</Badge>
+            <Badge color="#f59e0b">Few seats left</Badge>
           )}
         </div>
 
-        <Card.Title className="fw-bold">
+        <Card.Title className={styles.eventTitle}>
           {event.title}
         </Card.Title>
 
-        <Card.Text className="text-muted mb-1">
-          <strong>Date:</strong> {event.date}
-        </Card.Text>
-
-        <Card.Text className="text-muted mb-1">
-          <strong>Location:</strong> {event.location}
-        </Card.Text>
-
-        <Card.Text className="text-muted mb-1">
-          <strong>Price:</strong> ₹{event.price}
-        </Card.Text>
-
-        <Card.Text className="mb-3">
-          <strong>Seats Left:</strong> {event.seatsLeft}
-        </Card.Text>
+        <div className={styles.eventDetails}>
+          <p><strong>Date</strong><span>{event.date}</span></p>
+          <p><strong>Location</strong><span>{event.location}</span></p>
+          <p><strong>Price</strong><span>₹{event.price}</span></p>
+          <p>
+            <strong>Seats Left</strong>
+            <span>{event.seatsLeft}</span>
+          </p>
+        </div>
 
         <Link
           to={`/dashboard/events/${event.id}`}
-          className="btn btn-primary mt-auto"
+          className={`${styles.bookButton} ${
+            isSoldOut ? styles.disabledButton : ''
+          }`}
+          aria-disabled={isSoldOut}
+          onClick={(e) => {
+            if (isSoldOut) e.preventDefault();
+          }}
         >
-          Book Now
+          {isSoldOut ? 'Sold Out' : 'Book Now'}
         </Link>
       </Card.Body>
     </Card>

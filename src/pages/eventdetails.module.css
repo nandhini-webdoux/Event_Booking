@@ -1,0 +1,279 @@
+
+.eventPage {
+ min-height: 100%;
+  height: auto;
+  padding-bottom: 40px;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #6c63ff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+.backButton:hover {
+  color: #554bdc;
+}
+
+.pageHeading {
+  margin-bottom: 25px;
+}
+
+.eyebrow {
+  color: #6c63ff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.pageHeading h2 {
+  margin: 7px 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #25233a;
+}
+
+.pageHeading p {
+  color: #88869a;
+  margin: 0;
+  font-size: 14px;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: 0.75fr 0.7fr;
+  gap: 24px;
+  align-items: start;
+  max-width: 1000px;
+  margin: 50px;
+}
+
+.detailsCard,
+.bookingCard {
+  background: #ffffff;
+  border: 1px solid #eeeaf5;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 18px rgba(40, 35, 70, 0.06);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #f0eef5;
+}
+
+.categoryBadge {
+  display: inline-block;
+  padding: 6px 13px;
+  border-radius: 20px;
+  background: #f0efff;
+  color: #6c63ff;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 13px;
+}
+
+.cardHeader h3 {
+  font-size: 23px;
+  font-weight: 700;
+  color: #25233a;
+  margin: 0;
+}
+
+.eventIcon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 13px;
+  background: #f0efff;
+  color: #6c63ff;
+  font-size: 21px;
+}
+
+.infoList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  padding-top: 24px;
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.infoIcon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11px;
+  background: #f8f7fc;
+  color: #6c63ff;
+}
+
+.infoItem small {
+  color: #88869a;
+  font-size: 12px;
+}
+
+.infoItem p {
+  color: #25233a;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 4px 0 0;
+  overflow-wrap: anywhere;
+}
+
+.bookingHeader {
+  margin-bottom: 24px;
+}
+
+.bookingHeader h4 {
+  font-size: 19px;
+  font-weight: 700;
+  color: #25233a;
+  margin-bottom: 7px;
+}
+
+.bookingHeader p {
+  color: #88869a;
+  font-size: 13px;
+  margin: 0;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.formGroup label {
+  display: block;
+  color: #454258;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.formInput {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid #e7e4f2;
+  border-radius: 9px;
+  outline: none;
+  color: #25233a;
+  background: #ffffff;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.formInput:focus {
+  border-color: #6c63ff;
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+}
+
+.formGroup small {
+  display: block;
+  color: #9997a8;
+  font-size: 12px;
+  margin-top: 7px;
+}
+
+.totalBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  margin: 22px 0;
+  border-radius: 11px;
+  background: #f8f7fc;
+}
+
+.totalBox span {
+  color: #625f78;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.totalBox strong {
+  color: #6c63ff;
+  font-size: 22px;
+}
+
+.bookButton {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 9px;
+  background: #6c63ff;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.bookButton:hover:not(:disabled) {
+  background: #554bdc;
+}
+
+.bookButton:disabled {
+  background: #aaa7bd;
+  cursor: not-allowed;
+}
+
+.soldOutMessage {
+  margin-top: 22px;
+  padding: 14px;
+  border-radius: 10px;
+  background: #fff1f1;
+  color: #dc3545;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.unavailableText {
+  color: #88869a;
+  font-size: 14px;
+}
+
+@media (max-width: 992px) {
+  .detailsGrid {
+    grid-template-columns: 1fr;
+    margin-left:0;
+  }
+}
+
+@media (max-width: 576px) {
+  .detailsCard,
+  .bookingCard {
+    padding: 18px;
+  }
+
+  .pageHeading h2 {
+    font-size: 23px;
+  }
+
+  .cardHeader h3 {
+    font-size: 19px;
+  }
+
+  .infoList {
+    grid-template-columns: 1fr;
+    gap: 17px;
+  }
+}

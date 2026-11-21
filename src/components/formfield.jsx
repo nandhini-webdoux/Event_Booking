@@ -1,33 +1,55 @@
+
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 function FormField({
   label,
-  type = 'text',
+  type = "text",
   name,
   value,
   onChange,
   onBlur,
   error,
-  inputRef
+  inputRef,
+  autoComplete = "off",
 }) {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const isPassword = type === "password";
+
   return (
     <div className="mb-3">
-      <label className="form-label">{label}</label>
+      <label htmlFor={name} className="form-label">
+        {label}
+      </label>
 
-      <input
-        type={type}
-        name={name}
-        className="form-control"
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-        ref={inputRef}
-      />
+      <div className={isPassword ? "password-wrapper" : ""}>
+        <input
+          ref={inputRef}
+          id={name}
+          type={isPassword && showPassword ? "text" : type}
+          name={name}
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+          autoComplete={autoComplete}
+          className={`form-control ${error ? "is-invalid" : ""}`}
+        />
 
-      {error && (
-        <small className="text-danger">{error}</small>
-      )}
+        {isPassword && (
+          <button
+            type="button"
+            className="password-toggle"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </button>
+        )}
+      </div>
+
+      {error && <div className="text-danger">{error}</div>}
     </div>
   );
 }
 
 export default FormField;
-

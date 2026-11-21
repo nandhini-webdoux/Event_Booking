@@ -1,16 +1,19 @@
+
 import EventCard from './EventCard';
+import styles from './eventlist.module.css';
 
 function EventList({ events }) {
   if (events.length === 0) {
     return (
-      <p className="text-center text-muted fs-5 my-5">
-        No events found. Try a different search.
-      </p>
+      <div className={styles.emptyState}>
+        <h5>No Events Found</h5>
+        <p>Try changing your search or filters to find events.</p>
+      </div>
     );
   }
 
   return (
-    <div className="events-grid">
+    <div className={styles.eventsGrid}>
       {events.map((event) => (
         <EventCard key={event.id} event={event} />
       ))}

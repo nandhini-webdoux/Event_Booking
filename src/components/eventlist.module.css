@@ -1,0 +1,39 @@
+.eventsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
+}
+
+.emptyState {
+  padding: 50px 20px;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #eeeaf5;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(40, 35, 70, 0.05);
+}
+
+.emptyState h5 {
+  color: #25233a;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.emptyState p {
+  color: #77758a;
+  margin-bottom: 0;
+}
+
+@media (max-width: 992px) {
+  .eventsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 576px) {
+  .eventsGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
