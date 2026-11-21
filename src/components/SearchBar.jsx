@@ -1,7 +1,7 @@
 
 import Form from 'react-bootstrap/Form';
 import { FaSearch, FaTimes } from 'react-icons/fa';
-import styles from './SearchBar.module.css';
+import styles from './searchbar.module.css';
 
 function SearchBar({ searchText, onSearchChange }) {
   return (
